@@ -32,7 +32,7 @@ h2{
     justify-content: space-between;
 }
 #content button {
-    margin-right: 80%;
+    margin-right: 20%;
 }
 
 #trash_content{
@@ -45,5 +45,5 @@ h2{
     justify-content: space-between;
 }
 #trash_content button {
-    margin-right: 80%;
+    margin-right: 20%;
 }
