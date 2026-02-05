@@ -1,6 +1,6 @@
 
-let notesTitle = ['Ba', "Aufgaben", "Einkaufen"];
-let notes = ['banana', 'apfel', 'kiwi'];
+let notesTitle = [];
+let notes = [];
 let trashNotesTitle = [];
 let trashNotes = [];
 
@@ -35,32 +35,75 @@ function getTrashNoteTemplate(indexTrashNote) {
 }
 
 function addNote() {
+    let noteTitleInputRef = document.getElementById('note_title_input');
+    let noteTitleInput = noteTitleInputRef.value;
     let noteInputRef = document.getElementById('note_input');
     let noteInput = noteInputRef.value;
 
+    notesTitle.push(noteTitleInput);
     notes.push(noteInput);
+
+    saveToLocalStorage();
 
     renderNotes();
 
+    noteTitleInputRef.value = "";
     noteInputRef.value = "";
 }
 
+function saveToLocalStorage() {
+    localStorage.setItem('notesTitle', JSON.stringify(notesTitle));
+    localStorage.setItem('notes', JSON.stringify(notes));
+}
+
+function saveTrashToLocalStorage() {
+    localStorage.setItem('trashNotesTitle', JSON.stringify(trashNotesTitle));
+    localStorage.setItem('trashNotes', JSON.stringify(trashNotes));
+}
+
+function getFromLocalStorage() {
+    let arrTitle = JSON.parse(localStorage.getItem('notesTitle'))
+    let arr = JSON.parse(localStorage.getItem('notes'));
+    let arrTrashTitle = JSON.parse(localStorage.getItem('trashNotesTitle'));
+    let arrTrash = JSON.parse(localStorage.getItem('trashNotes'));
+
+    if (arrTitle) {
+        notesTitle = arrTitle;
+    }
+
+    if (arr) {
+        notes = arr;
+    }
+
+    if (arrTrashTitle) {
+        trashNotesTitle = arrTrashTitle;
+    }
+
+    if (arrTitle) {
+        trashNotes = arrTrash;
+    }
+
+    renderNotes();
+    renderTrashNotes();
+}
+
 function toTrashNote(indexNote) {
-    let trashNote = notes.splice(indexNote, 1);
     let trashNoteTitle = notesTitle.splice(indexNote, 1);
+    let trashNote = notes.splice(indexNote, 1);
     trashNotesTitle.push(trashNoteTitle);
     trashNotes.push(trashNote);
+    
+    saveToLocalStorage();
+    saveTrashToLocalStorage();
     renderNotes();
     renderTrashNotes();
 }
 
 function deleteNote(indexTrashNote) {
+    trashNotesTitle.splice(indexTrashNote,1);
     trashNotes.splice(indexTrashNote, 1);
+    saveTrashToLocalStorage();
     renderTrashNotes();
 }
 
-
-
-
-//notizen archivieren
 

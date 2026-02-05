@@ -12,8 +12,9 @@
     <link rel="stylesheet" href="./assets/styles/standard.css">
 </head>
 
-<body onload="renderNotes()">
+<body onload="getFromLocalStorage()">
     <h1>Notizblock</h1>
+    <input id="note_title_input" type="text"><br>
     <input id="note_input" type="text">
     <button onclick="addNote()">Notiz speichern</button>
     <h2>notes</h2>
